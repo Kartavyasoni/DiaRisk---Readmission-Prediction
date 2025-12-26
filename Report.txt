@@ -1,0 +1,62 @@
+1. Project Setup
+    
+    File Structure:
+        - The project directory was already structured with folders for raw data (Raw), processed data (Processed), and source code (SRC).
+        - The ETL pipeline script was created as etl_pipeline.py in the SRC folder.
+    
+    Dataset:
+        - The raw dataset (diabetic_data.csv) was placed in the Raw directory.
+
+2. ETL Pipeline Development
+
+The ETL pipeline was implemented in the etl_pipeline.py script with the following components:
+
+    a. File Paths
+        - Defined file paths for the raw and processed data at the top of the script
+        - This ensures that the file paths are centralized and easy to update.
+
+    b. Load Data
+        - Implemented the load_data function to load the raw dataset using pandas.read_csv()
+        - Purpose:
+            ~ Reads the raw dataset into a pandas.DataFrame.
+            ~ Provides feedback to the user with a print statement.
+
+    c. Clean Data
+        - Implemented the clean_data function to clean the raw dataset
+        - Steps Performed:
+            1. Remove Duplicates: Ensures no duplicate rows exist in the dataset.
+            2. Impute Missing Values: 
+                > For categorical columns: Replaced missing values with the most frequent value (mode).
+                > For numerical columns: Replaced missing values with the mean.
+        - Purpose:
+            ~ Ensures the dataset is clean and complete without reducing its size drastically.
+
+    d. Save Data
+        - Implemented the save_data function to save the cleaned dataset to the processed data path:
+        - Steps Performed:
+            1. Ensured the directory for the processed file exists using os.makedirs().
+            2. Saved the cleaned dataset as a CSV file using pandas.DataFrame.to_csv().
+        - Purpose:
+            Saves the cleaned dataset for further use in feature engineering and model training.
+    
+    e. Orchestrating the Pipeline
+        - The __main__ block orchestrates the ETL pipeline
+        - Steps Performed:
+            1. Loaded the raw dataset using load_data.
+            2. Cleaned the dataset using clean_data.
+            3. Saved the cleaned dataset using save_data.
+            4. Displayed the first 5 rows of the cleaned dataset for verification.
+
+3. Testing the Pipeline
+    
+    The pipeline was tested end-to-end:
+        - The raw dataset was successfully loaded.
+        - The data was cleaned:
+            ~ Duplicates were removed.
+            ~ Missing values were imputed.
+        - The cleaned dataset was saved to diabetic_data_processed.csv.
+        - The first 5 rows of the cleaned dataset were displayed for verification.
+    
+    Output:
+        - The cleaned dataset was saved successfully.
+        - The output confirmed that the cleaning steps were applied correctly.
