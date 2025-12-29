@@ -20,13 +20,9 @@ def clean_data(df):
     # Remove duplicates
     df = df.drop_duplicates()
 
-    # Impute missing values
-    for column in df.columns:
-        if df[column].isnull().any():
-            if df[column].dtype == 'object':  # For categorical columns
-                df[column].fillna(df[column].mode()[0])
-            else:  # For numerical columns
-                df[column].fillna(df[column].mean())
+    # Remove columns with more than 50% missing values
+    threshold = len(df) * 0.5
+    df = df.loc[:, df.isnull().sum() < threshold]
     
     return df
 
